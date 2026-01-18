@@ -1,0 +1,5 @@
+targets:
+  $default:
+    builders:
+      # 移除所有自定义配置，使用默认配置
+      # 这样 freezed 和 json_serializable 会在所有目录正常工作

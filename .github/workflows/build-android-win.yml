@@ -1,0 +1,83 @@
+name: Build Android
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip zip curl wget git rsync
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      # ✅ 不再生成 yaml，只做存在性检查（避免覆盖你手动维护的配置）
+      - name: Ensure required assets exist (no auto-generate)
+        run: |
+          mkdir -p assets/cer assets/config
+          test -d assets/cer
+          test -f assets/config/xboard.config.yaml
+          echo "=== assets check ==="
+          ls -la assets
+          ls -la assets/config
+
+      - name: Generate code (build_runner) - root
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Generate SDK code (build_runner)
+        run: |
+          cd lib/sdk/flutter_xboard_sdk
+          flutter pub get
+          flutter pub run build_runner build --delete-conflicting-outputs
+          cd ../../..
+
+      - name: Setup project (android) - capture log
+        shell: bash
+        run: |
+          set -o pipefail
+          dart --version 2>&1 | tee setup_android.log
+          flutter --version 2>&1 | tee -a setup_android.log
+          dart run setup.dart android 2>&1 | tee -a setup_android.log
+
+      - name: Upload setup log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: setup-android-log
+          path: setup_android.log
+
+      - name: Build Android APK - capture log
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter build apk --release 2>&1 | tee build_android.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-android-log
+          path: build_android.log
+
+      - name: Upload APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk

@@ -1,0 +1,53 @@
+{
+  "panels": {
+    "mihomo": [
+      {
+        "url": "https://vip8888.dpdns.org",
+        "description": "章鱼机场 - 主域名"
+      }
+    ]
+  },
+  "proxy": [
+    {
+      "url": "",
+      "description": "（可选）代理服务器1：不使用则留空",
+      "protocol": "http"
+    }
+  ],
+  "ws": [
+    {
+      "url": "",
+      "description": "（可选）WebSocket 服务：不使用则留空"
+    }
+  ],
+  "update": [
+    {
+      "url": "https://vip8888.dpdns.org",
+      "description": "（可选）更新服务器：暂用同域占位"
+    }
+  ],
+  "onlineSupport": [
+    {
+      "url": "https://vip8888.dpdns.org",
+      "description": "在线客服：暂用同域占位",
+      "apiBaseUrl": "https://vip8888.dpdns.org",
+      "wsBaseUrl": ""
+    }
+  ],
+  "subscription": {
+    "urls": [
+      {
+        "url": "https://vip8888.dpdns.org",
+        "description": "章鱼机场 - 订阅入口",
+        "endpoints": {
+          "v2": {
+            "path": "/api/v2/subscription-encrypt/{token}",
+            "requiresToken": true,
+            "method": "GET",
+            "description": "V2 加密订阅接口，token 在路径中"
+          }
+        }
+      }
+    ]
+  }
+}
