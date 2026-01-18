@@ -2,6 +2,16 @@ name: Build Android
 
 on:
   workflow_dispatch:
+    inputs:
+      build_mode:
+        description: 'Android build mode (release/debug/profile)'
+        required: false
+        default: 'release'
+        type: choice
+        options:
+          - release
+          - debug
+          - profile
   push:
     branches: [ main, master ]
 
@@ -82,7 +92,9 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          flutter build apk --release 2>&1 | tee build_android.log
+          BUILD_MODE="${{ github.event.inputs.build_mode || 'release' }}"
+          echo "Build mode: $BUILD_MODE"
+          flutter build apk --$BUILD_MODE 2>&1 | tee build_android.log
 
       - name: Upload build log
         if: always()
@@ -96,4 +108,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/*.apk
