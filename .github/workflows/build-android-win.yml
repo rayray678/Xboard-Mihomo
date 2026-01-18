@@ -94,6 +94,8 @@ jobs:
           set -o pipefail
           BUILD_MODE="${{ github.event.inputs.build_mode || 'release' }}"
           echo "Build mode: $BUILD_MODE"
+          export GRADLE_OPTS="-Xmx6g -Dfile.encoding=UTF-8"
+          export JAVA_TOOL_OPTIONS="-Xmx6g -Dfile.encoding=UTF-8"
           flutter build apk --$BUILD_MODE 2>&1 | tee build_android.log
 
       - name: Upload build log
