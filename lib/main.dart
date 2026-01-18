@@ -30,6 +30,7 @@ RemoteTaskManager? remoteTaskManager;
 Future<void> main() async {
   globalState.isService = false;
   WidgetsFlutterBinding.ensureInitialized(); // 确保 Flutter 绑定已初始化
+  commonPrint.log("App starting...");
 
   // 首先初始化XBoard配置模块和域名服务（必须在RemoteTaskManager之前）
   await _initializeXBoardServices();
