@@ -31,6 +31,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq unzip zip curl wget git rsync
 
+      - name: Go mod tidy (core)
+        run: |
+          cd core
+          go mod tidy
+
       - name: Flutter pub get
         run: flutter pub get
 
