@@ -27,10 +27,14 @@ jobs:
       - name: Flutter pub get
         run: flutter pub get
 
-      # ✅ 不再生成 yaml，只做存在性检查（避免覆盖你手动维护的配置）
-      - name: Ensure required assets exist (no auto-generate)
+      # ✅ 如果配置文件不存在，从示例文件创建
+      - name: Ensure required assets exist
         run: |
           mkdir -p assets/cer assets/config
+          if [ ! -f assets/config/xboard.config.yaml ]; then
+            echo "配置文件不存在，从示例文件创建..."
+            cp assets/config/xboard.config.example.yaml assets/config/xboard.config.yaml
+          fi
           test -d assets/cer
           test -f assets/config/xboard.config.yaml
           echo "=== assets check ==="
