@@ -656,11 +656,30 @@ class AppController {
     if (_ref.read(appSettingProvider).disclaimerAccepted) {
       return;
     }
+    final ready = await _waitForDialogContext();
+    if (ready != true) {
+      commonPrint.log("Disclaimer dialog skipped: navigator not ready");
+      return;
+    }
     final isDisclaimerAccepted = await showDisclaimer();
     if (!isDisclaimerAccepted) {
       await handleExit();
     }
     return;
+  }
+
+  Future<bool?> _waitForDialogContext({
+    Duration timeout = const Duration(seconds: 5),
+  }) async {
+    final deadline = DateTime.now().add(timeout);
+    while (globalState.navigatorKey.currentState == null &&
+        globalState.navigatorKey.currentContext == null) {
+      if (DateTime.now().isAfter(deadline)) {
+        return null;
+      }
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+    return true;
   }
 
   Future<void> importProfileInBackground(String url) async {
