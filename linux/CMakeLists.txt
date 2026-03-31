@@ -91,6 +91,13 @@ set_target_properties(${BINARY_NAME}
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# Debian 13 ships Ayatana AppIndicator headers that mark the tray_manager API
+# as deprecated. Keep strict warnings for the app, but allow this third-party
+# plugin to compile until the upstream plugin is updated.
+if(TARGET tray_manager_plugin)
+  target_compile_options(tray_manager_plugin PRIVATE -Wno-error=deprecated-declarations)
+endif()
+
 
 # === Installation ===
 # By default, "installing" just makes a relocatable bundle in the build

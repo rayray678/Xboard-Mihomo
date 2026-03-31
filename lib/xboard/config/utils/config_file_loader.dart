@@ -12,15 +12,27 @@ final _logger = FileLogger('config_file_loader.dart');
 class ConfigFileLoader {
   /// 配置文件路径
   static const String configPath = 'assets/config/xboard.config.yaml';
+  static const String fallbackConfigPath = 'assets/config/xboard.config.example.yaml';
+
+  static Future<({String path, String yamlString})> _loadConfigAsset() async {
+    try {
+      final yamlString = await rootBundle.loadString(configPath);
+      return (path: configPath, yamlString: yamlString);
+    } catch (error) {
+      _logger.warning('加载主配置失败，回退示例配置: $error');
+      final yamlString = await rootBundle.loadString(fallbackConfigPath);
+      return (path: fallbackConfigPath, yamlString: yamlString);
+    }
+  }
   
   /// 加载配置文件
   /// 
   /// 从 assets/config/xboard.config.yaml 加载配置
   static Future<ConfigSettings> loadFromFile() async {
     try {
-      final yamlString = await rootBundle.loadString(configPath);
-      final config = _parseYamlString(yamlString);
-      _logger.info('从 assets 加载配置: $configPath');
+      final asset = await _loadConfigAsset();
+      final config = _parseYamlString(asset.yamlString);
+      _logger.info('从 assets 加载配置: ${asset.path}');
       return config;
     } catch (e) {
       _logger.error('加载配置文件失败', e);
@@ -128,8 +140,8 @@ class ConfigFileLoader {
   /// 从 assets/config/xboard.config.yaml 加载扩展配置
   static Future<Map<String, dynamic>> loadExtendedConfig() async {
     try {
-      final yamlString = await rootBundle.loadString(configPath);
-      final yamlDoc = loadYaml(yamlString);
+      final asset = await _loadConfigAsset();
+      final yamlDoc = loadYaml(asset.yamlString);
       final configMap = _yamlToMap(yamlDoc);
       
       return configMap['xboard'] as Map<String, dynamic>? ?? {};
@@ -242,11 +254,20 @@ extension ConfigFileLoaderHelper on ConfigFileLoader {
   
   /// 获取证书配置
   static Future<Map<String, dynamic>> getCertificateConfig() async {
-    // 硬编码证书配置，不再从配置文件读取
-    return {
-      'path': 'assets/cer/client-cert.crt',
-      'enabled': true,
-    };
+    const certPath = 'assets/cer/client-cert.crt';
+
+    try {
+      await rootBundle.loadString(certPath);
+      return {
+        'path': certPath,
+        'enabled': true,
+      };
+    } catch (_) {
+      return {
+        'path': null,
+        'enabled': false,
+      };
+    }
   }
   
   /// 获取应用标题
@@ -291,4 +312,3 @@ extension ConfigFileLoaderHelper on ConfigFileLoader {
     }
   }
 }
-

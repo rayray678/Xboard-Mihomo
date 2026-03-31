@@ -5,6 +5,7 @@ library;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:fl_clash/xboard/core/core.dart';
 import 'package:fl_clash/xboard/infrastructure/http/user_agent_config.dart';
@@ -536,4 +537,3 @@ class CancelToken {
     _isCancelled = true;
   }
 }
-
