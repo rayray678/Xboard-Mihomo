@@ -118,6 +118,7 @@ dart setup.dart android
 | [快速开始](docs/quick-start.md) | 5分钟最小可用性配置教程 |
 | [构建指南](docs/build-guide.md) | 完整的构建和运行环境配置 |
 | [长期维护通道](docs/maintenance-lane.md) | 发版节奏、依赖 watchlist、每周巡检与 backlog |
+| [新功能路线图](docs/feature-roadmap.md) | 下一阶段功能探索、优先级与分工 |
 | [配置文档](docs/configuration.md) | 完整的配置说明和示例 |
 | [核心特性](docs/features.md) | 详细的功能说明和使用方法 |
 | [服务端部署](docs/server-deployment.md) | XBoard 面板和 Caddy 反代配置 |
