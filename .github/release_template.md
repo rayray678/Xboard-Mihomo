@@ -4,6 +4,27 @@
 
 </div>
 
+## Batch Summary
+
+- **User-visible changes:**
+- **Build / packaging changes:**
+- **SDK / submodule updates:**
+- **Config or security changes:**
+
+## Validation Checklist
+
+- [ ] `flutter analyze lib tool`
+- [ ] `dart setup.dart linux --arch amd64 --out core`
+- [ ] `flutter build linux --release`
+- [ ] Bundle still contains `Flclash`, `FlClashCore`, and `assets/config/xboard.config.example.yaml`
+
+## Risk Notes
+
+- Linux tray / packaging compatibility
+- Config asset fallback on fresh clones
+- Certificate pinning only when certificate assets exist
+- Analyzer drift from generated files or third-party plugin trees
+
 **Download based on your OS:**
 
 <div align=left>

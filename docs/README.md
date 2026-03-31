@@ -11,6 +11,7 @@
 ### 📖 详细文档
 - **[核心特性](./features.md)** - 详细的功能说明和使用方法
 - **[服务端部署](./server-deployment.md)** - XBoard 面板和 Caddy 反代配置
+- **[长期维护通道](./maintenance-lane.md)** - 发版节奏、依赖 watchlist、每周巡检与后续 backlog
 - **[配置示例](./examples/)** - 各种配置场景的完整示例
 
 ### 📋 核心概念
@@ -108,6 +109,7 @@ xboard:
 | 🚀 快速开始 | 只配置一个面板地址 | [快速开始](./quick-start.md) |
 | 🛠️ 构建应用 | 环境准备和编译打包 | [构建指南](./build-guide.md) |
 | 🌟 核心特性 | 功能说明和使用方法 | [核心特性](./features.md) |
+| 🧭 长期维护 | 发版节奏、依赖 watchlist 与每周巡检 | [长期维护通道](./maintenance-lane.md) |
 | 🔒 服务端部署 | XBoard 面板和 Caddy 配置 | [服务端部署](./server-deployment.md) |
 | 🏢 生产环境 | 多面板 + 备用节点 | [生产配置](./examples/production.md) |
 
