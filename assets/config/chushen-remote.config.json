@@ -18,16 +18,19 @@
   ],
   "proxy": [],
   "subscription": {
+    "enableEncrypt": false,
     "urls": [
       {
-        "url": "https://hh.kunmm.cc.cd",
-        "description": "主站订阅",
+        "url": "https://ii.kunmm.cc.cd",
+        "description": "标准订阅（与面板 subscribe_path 一致，默认 /s/{token}）",
+        "supportEncrypt": false,
         "endpoints": {
-          "v2": {
-            "path": "/api/v2/subscription-encrypt/{token}",
+          "v1": {
+            "path": "/s/{token}",
             "requiresToken": true,
             "method": "GET",
-            "description": "XBoard V2 加密订阅"
+            "description": "XBoard 通用订阅链接，非 subscription-encrypt API",
+            "isEncrypt": false
           }
         }
       }
