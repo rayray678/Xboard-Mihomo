@@ -1,0 +1,36 @@
+{
+  "panelType": "xboard",
+  "panels": {
+    "mihomo": [
+      {
+        "url": "https://hh.kunmm.cc.cd",
+        "description": "厨神来了"
+      }
+    ]
+  },
+  "onlineSupport": [
+    {
+      "url": "https://hh.kunmm.cc.cd",
+      "description": "厨神来了 - 支持",
+      "apiBaseUrl": "https://hh.kunmm.cc.cd",
+      "wsBaseUrl": "wss://hh.kunmm.cc.cd"
+    }
+  ],
+  "proxy": [],
+  "subscription": {
+    "urls": [
+      {
+        "url": "https://hh.kunmm.cc.cd",
+        "description": "主站订阅",
+        "endpoints": {
+          "v2": {
+            "path": "/api/v2/subscription-encrypt/{token}",
+            "requiresToken": true,
+            "method": "GET",
+            "description": "XBoard V2 加密订阅"
+          }
+        }
+      }
+    ]
+  }
+}
