@@ -21,7 +21,7 @@
     "enableEncrypt": false,
     "urls": [
       {
-        "url": "https://ii.kunmm.cc.cd",
+        "url": "https://hh.kunmm.cc.cd",
         "description": "标准订阅（与面板 subscribe_path 一致，默认 /s/{token}）",
         "supportEncrypt": false,
         "endpoints": {
