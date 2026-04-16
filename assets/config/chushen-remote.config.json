@@ -3,7 +3,7 @@
   "panels": {
     "mihomo": [
       {
-        "url": "https://hh.kunmm.cc.cd",
+        "url": "https://dd.ikunk.de5.net/sub?target=clash&url=https://hh.kunmm.cc.cd",
         "description": "厨神来了"
       }
     ]
@@ -21,15 +21,15 @@
     "enableEncrypt": false,
     "urls": [
       {
-        "url": "https://hh.kunmm.cc.cd",
-        "description": "标准订阅（与面板 subscribe_path 一致，默认 /s/{token}）",
+        "url": "https://dd.ikunk.de5.net/sub?target=clash&url=https://hh.kunmm.cc.cd",
+        "description": "Clash订阅（自动转换）",
         "supportEncrypt": false,
         "endpoints": {
           "v1": {
             "path": "/s/{token}",
             "requiresToken": true,
             "method": "GET",
-            "description": "XBoard 通用订阅链接，非 subscription-encrypt API",
+            "description": "通过 subconverter 转换为 Clash",
             "isEncrypt": false
           }
         }
